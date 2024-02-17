@@ -32,14 +32,14 @@ def load_image(x):
 
 
 # move matching labels
-
-for folder in ['train','test','val']:
-    for file in os.listdir(os.path.join('data',folder,'images')):
-        filename=file.split('.')[0]+'.json'
-        existingPath=os.path.join('data','labels',filename)
-        newPath = os.path.join('data', folder, 'labels', filename)
-        if os.path.exists(existingPath):
-
-            os.replace(existingPath,newPath)
+#run it once
+# for folder in ['train','test','val']:
+#     for file in os.listdir(os.path.join('data',folder,'images')):
+#         filename=file.split('.')[0]+'.json'
+#         existingPath=os.path.join('data','labels',filename)
+#         newPath = os.path.join('data', folder, 'labels', filename)
+#         if os.path.exists(existingPath):
+#
+#             os.replace(existingPath,newPath)
 
 
