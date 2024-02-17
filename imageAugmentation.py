@@ -3,6 +3,7 @@ import os.path
 
 import albumentations as alb
 import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 
 augmentor=alb.Compose(
@@ -19,7 +20,7 @@ img=cv2.imread(os.path.join('data','train','images','3a2f4ffc-babc-11ee-a0ad-b42
 with open(os.path.join('data','train','labels','3a2f4ffc-babc-11ee-a0ad-b42e996e5f84.json'),'r') as file:
     label=json.load(file)
 
-print(label['shapes'][0]['points'])
+print(label['shapes'][0])
 coords=[0,0,0,0]
 coords[0] = label['shapes'][0]['points'][0][0]
 coords[1] = label['shapes'][0]['points'][0][1]
@@ -30,5 +31,14 @@ coords=list(np.divide(coords,[640,480,640,480]))
 print(coords)
 
 augmented=augmentor(image=img,bboxes=[coords],class_labels=['face'])
-print(augmented['image'].shape)
+# print(augmented['image'].shape)
+print(augmented)
 
+cv2.rectangle(
+    augmented['image'],
+    tuple(np.multiply(augmented['bboxes'][0][:2], [450,450]).astype(int)),
+    tuple(np.multiply(augmented['bboxes'][0][2:], [450,450]).astype(int)),
+    (255,0,0), 2)
+
+plt.imshow((augmented['image']))
+plt.show()
