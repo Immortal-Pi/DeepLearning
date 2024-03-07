@@ -3,4 +3,4 @@ import pandas as pd
 
 
 data=pd.read_csv('datasets/trainhouseprice.csv')
-print(data)
+print(data.columns)

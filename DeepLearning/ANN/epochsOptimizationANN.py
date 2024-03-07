@@ -26,8 +26,8 @@ import keras_lr_finder as lr_find
 from clr_callback import *
 
 # get the data
-train = pd.read_csv('../datasets/train.csv')
-test = pd.read_csv('../datasets/test.csv')
+train = pd.read_csv('datasets/train.csv')
+test = pd.read_csv('datasets/test.csv')
 
 # view sample images and classes
 # img_name=os.path.join('datasets/Train',train['ID'][2010])
@@ -40,7 +40,7 @@ test = pd.read_csv('../datasets/test.csv')
 # transforming the dataset to a 1d array after reshaping all the images 32*32*3
 temp = []
 for img_name in train['ID']:
-    img_path = os.path.join('../datasets/Train', img_name)
+    img_path = os.path.join('datasets/Train', img_name)
     img = imageio.imread(img_path)
     img = np.array(Image.fromarray(img).resize((32, 32))).astype('float32')
     temp.append(img)
@@ -59,7 +59,7 @@ temp = []
 # normalize the data
 x_train = x_train / 255
 # x_test=x_test/255
-
+print(x_train.shape)
 
 # knowing the distribution of class in data
 # print(train['Class'].value_counts(normalize=True))
