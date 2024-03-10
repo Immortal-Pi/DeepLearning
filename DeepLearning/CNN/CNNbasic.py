@@ -141,8 +141,8 @@ def plot_cm(cm,text):
 train_cm=confusion_matrix(lb.inverse_transform(ytrain),lb.inverse_transform(y_train_pred))
 test_cm=confusion_matrix(lb.inverse_transform(ytest),lb.inverse_transform(y_test_pred))
 
-# plot_cm(train_cm,'Confusion matrix train data')
-# plot_cm(test_cm,'Confusion matrix test data')
+plot_cm(train_cm,'Confusion matrix train data')
+plot_cm(test_cm,'Confusion matrix test data')
 
 
 
@@ -163,6 +163,22 @@ pd.Series(ship_prob,index=classes).plot.barh()
 plt.show()
 
 
+layer_idx=utils.find_layer_idx(model,'pred_values')
+model.layers[layer_idx].activation=keras.activations.linear
+model=utils.apply_modifications(model)
+
+
+
+plt.figure(figsize=(12,6))
+for i in range(len(classes)):
+    plt.subplot(2,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.xlabel(classes[i])
+    plt.title('p='+str(np.round(ship_prob[i],4)))
+    grads=visualize_saliency(model, layer_idx,filter_indices=i,seed_input=ship_img,backprop_modifier='guided')
+    plt.imshow(grads,cmap='jet')
+plt.show()
 #
 
 
